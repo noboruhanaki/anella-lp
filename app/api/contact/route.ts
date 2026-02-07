@@ -2,6 +2,26 @@ import { NextRequest, NextResponse } from "next/server"
 import { google } from "googleapis"
 import { Resend } from "resend"
 
+/** 本番の LP ドメインなど別オリジンからフォーム送信できるよう CORS ヘッダーを付ける */
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Max-Age": "86400",
+} as const
+
+function withCors(res: NextResponse) {
+  Object.entries(CORS_HEADERS).forEach(([key, value]) => {
+    res.headers.set(key, value)
+  })
+  return res
+}
+
+/** ブラウザの CORS 事前チェック（OPTIONS）用 */
+export async function OPTIONS() {
+  return withCors(new NextResponse(null, { status: 204 }))
+}
+
 export type ContactFormBody = {
   name: string
   phone: string
@@ -169,9 +189,11 @@ export async function POST(request: NextRequest) {
     const message = typeof raw?.message === "string" ? raw.message.trim() : undefined
 
     if (!name || !phone || !email) {
-      return NextResponse.json(
-        { success: false, error: "お名前・電話番号・メールアドレスは必須です。" },
-        { status: 400 }
+      return withCors(
+        NextResponse.json(
+          { success: false, error: "お名前・電話番号・メールアドレスは必須です。" },
+          { status: 400 }
+        )
       )
     }
 
@@ -188,24 +210,36 @@ export async function POST(request: NextRequest) {
         emailResult.error && `メール: ${emailResult.error}`,
         chatworkResult.error && `Chatwork: ${chatworkResult.error}`,
       ].filter(Boolean)
-      return NextResponse.json(
-        { success: false, error: errors.join(" / ") },
-        { status: 502 }
+      const isUnset =
+        emailResult.error === "RESEND_API_KEY is not set" &&
+        chatworkResult.error === "CHATWORK_API_TOKEN or CHATWORK_ROOM_ID is not set"
+      const message = isUnset
+        ? "送信先が設定されていません。.env.local に RESEND_API_KEY または CHATWORK_API_TOKEN・CHATWORK_ROOM_ID を設定し、開発サーバーを再起動してください。詳しくは .env.example と docs を参照してください。"
+        : errors.join(" / ")
+      return withCors(
+        NextResponse.json(
+          { success: false, error: message },
+          { status: 502 }
+        )
       )
     }
     if (!sheetResult.ok) {
       console.warn("[Contact API] スプレッドシート追記に失敗:", sheetResult.error)
     }
 
-    return NextResponse.json({
-      success: true,
-      ...(sheetResult.ok ? {} : { sheetError: sheetResult.error }),
-    })
+    return withCors(
+      NextResponse.json({
+        success: true,
+        ...(sheetResult.ok ? {} : { sheetError: sheetResult.error }),
+      })
+    )
   } catch (e) {
     console.error("Contact API error:", e)
-    return NextResponse.json(
-      { success: false, error: "送信処理でエラーが発生しました。" },
-      { status: 500 }
+    return withCors(
+      NextResponse.json(
+        { success: false, error: "送信処理でエラーが発生しました。" },
+        { status: 500 }
+      )
     )
   }
 }
