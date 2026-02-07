@@ -35,9 +35,21 @@ export function ContactFormSection() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, phone, email, message }),
       })
-      const data = await res.json().catch(() => ({}))
+      const text = await res.text()
+      type ContactApiResponse = { error?: string; sheetError?: string; success?: boolean }
+      const data = (() => {
+        try {
+          return text ? (JSON.parse(text) as ContactApiResponse) : ({} as ContactApiResponse)
+        } catch {
+          return {} as ContactApiResponse
+        }
+      })()
       if (!res.ok) {
-        toast.error(data?.error ?? "送信に失敗しました。お手数ですがお電話でご連絡ください。")
+        const msg =
+          data?.error && typeof data.error === "string"
+            ? data.error
+            : "送信に失敗しました。お手数ですがお電話でご連絡ください。"
+        toast.error(msg)
         return
       }
       if (data?.sheetError) {

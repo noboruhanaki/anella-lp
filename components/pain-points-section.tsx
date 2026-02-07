@@ -1,4 +1,5 @@
 import { Heart } from "lucide-react"
+import { imagePath } from "@/lib/constants"
 
 const painPoints = [
   "パソコンに向かってじっと座っているのが辛い",
@@ -44,7 +45,7 @@ export function PainPointsSection() {
         {/* Worried illustration - directly below heading */}
         <div className="mb-6 flex justify-center">
           <img
-            src="/images/nayami.png"
+            src={imagePath("/images/nayami.png")}
             alt="こんな悩み、ありませんか？"
             className="h-40 w-auto rounded-xl object-contain"
           />

@@ -1,7 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { MapPin, Coins, Mail } from "lucide-react"
+import { Dog, MapPin, Coins, Mail } from "lucide-react"
+import { imagePath } from "@/lib/constants"
 
 export function HeroSection() {
   const scrollToForm = () => {
@@ -24,21 +25,45 @@ export function HeroSection() {
             <br />
             {"自分らしく働く。"}
           </h1>
-          <div
-            className="flex flex-wrap items-center justify-center gap-2 text-xs"
-            style={{ color: "#6B5541" }}
-          >
-            <span className="flex items-center gap-1">
-              <MapPin className="h-3.5 w-3.5" />
-              {"川崎駅徒歩圏内"}
-            </span>
-            <span className="opacity-40">|</span>
-            <span>{"保護犬猫カフェ×就労継続支援B型"}</span>
-            <span className="opacity-40">|</span>
-            <span className="flex items-center gap-1">
-              <Coins className="h-3.5 w-3.5" />
-              {"時給400円〜"}
-            </span>
+          {/* 目立つ情報ブロック（SP）・横並び・真円で囲む */}
+          <div className="mx-auto mt-4 flex flex-wrap items-center justify-center gap-3">
+            <div
+              className="flex h-20 w-20 flex-shrink-0 flex-col items-center justify-center gap-0.5 rounded-full p-1.5 text-center shadow-md"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.95)",
+                border: "2px solid #6B5541",
+                color: "#6B5541",
+              }}
+            >
+              <Dog className="h-5 w-5 shrink-0" style={{ color: "#E86833" }} />
+              <span className="text-[10px] font-semibold leading-tight">{"動物×就労支援"}</span>
+            </div>
+            <div
+              className="flex h-20 w-20 flex-shrink-0 flex-col items-center justify-center gap-0.5 rounded-full p-1.5 text-center shadow-md"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.95)",
+                border: "2px solid #6B5541",
+                color: "#6B5541",
+              }}
+            >
+              <MapPin className="h-5 w-5 shrink-0" style={{ color: "#E86833" }} />
+              <span className="text-[10px] font-semibold leading-tight">{"川崎駅徒歩圏内"}</span>
+            </div>
+            <div
+              className="flex h-20 w-20 flex-shrink-0 flex-col items-center justify-center gap-0 rounded-full p-1.5 text-center shadow-md"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.95)",
+                border: "2px solid #6B5541",
+                color: "#6B5541",
+              }}
+            >
+              <Coins className="h-5 w-5 shrink-0" style={{ color: "#E86833" }} />
+              <span className="text-[10px] font-semibold leading-tight">
+                {"時給換算"}
+                <br />
+                <span className="font-bold" style={{ color: "#E86833" }}>{"400円〜"}</span>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -59,7 +84,7 @@ export function HeroSection() {
             }}
           />
           <img
-            src="/images/e5-ba-97-e8-88-97-e7-94-bb-e5-83-8f1.jpeg"
+            src={imagePath("/images/e5-ba-97-e8-88-97-e7-94-bb-e5-83-8f1.jpeg")}
             alt="アネラカフェ店内で犬と触れ合うスタッフの様子"
             className="h-[300px] w-full object-cover"
           />
@@ -99,22 +124,45 @@ export function HeroSection() {
               <span style={{ color: "#E86833" }}>{"自分らしく"}</span>
               {"働く。"}
             </h1>
-            <p
-              className="mb-8 text-base leading-relaxed"
-              style={{ color: "#6B5541" }}
-            >
-              {"保護犬猫カフェ×就労継続支援B型"}
-            </p>
-            <div className="flex flex-wrap items-center gap-3 text-sm" style={{ color: "#6B5541" }}>
-              <span className="flex items-center gap-1">
-                <MapPin className="h-4 w-4" />
-                {"川崎駅徒歩圏内"}
-              </span>
-              <span className="opacity-40">|</span>
-              <span className="flex items-center gap-1">
-                <Coins className="h-4 w-4" />
-                {"時給400円〜"}
-              </span>
+            {/* 目立つ情報ブロック（PC）・横並び・真円で囲む */}
+            <div className="mb-8 flex flex-wrap items-center gap-4">
+              <div
+                className="flex h-24 w-24 flex-shrink-0 flex-col items-center justify-center gap-1 rounded-full p-2 text-center shadow-md"
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.95)",
+                  border: "2px solid #6B5541",
+                  color: "#6B5541",
+                }}
+              >
+                <Dog className="h-6 w-6 shrink-0" style={{ color: "#E86833" }} />
+                <span className="text-xs font-semibold leading-tight">{"動物×就労支援"}</span>
+              </div>
+              <div
+                className="flex h-24 w-24 flex-shrink-0 flex-col items-center justify-center gap-1 rounded-full p-2 text-center shadow-md"
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.95)",
+                  border: "2px solid #6B5541",
+                  color: "#6B5541",
+                }}
+              >
+                <MapPin className="h-6 w-6 shrink-0" style={{ color: "#E86833" }} />
+                <span className="text-xs font-semibold leading-tight">{"川崎駅徒歩圏内"}</span>
+              </div>
+              <div
+                className="flex h-24 w-24 flex-shrink-0 flex-col items-center justify-center gap-0 rounded-full p-2 text-center shadow-md"
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.95)",
+                  border: "2px solid #6B5541",
+                  color: "#6B5541",
+                }}
+              >
+                <Coins className="h-6 w-6 shrink-0" style={{ color: "#E86833" }} />
+                <span className="text-xs font-semibold leading-tight">
+                  {"時給換算"}
+                  <br />
+                  <span className="font-bold" style={{ color: "#E86833" }}>{"400円〜"}</span>
+                </span>
+              </div>
             </div>
 
             <div className="mt-8 max-w-xs">
@@ -145,7 +193,7 @@ export function HeroSection() {
               }}
             />
             <img
-              src="/images/e5-ba-97-e8-88-97-e7-94-bb-e5-83-8f1.jpeg"
+              src={imagePath("/images/e5-ba-97-e8-88-97-e7-94-bb-e5-83-8f1.jpeg")}
               alt="アネラカフェ店内で犬と触れ合うスタッフの様子"
               className="h-[480px] w-full object-cover"
             />

@@ -2,6 +2,7 @@
 
 import { Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { imagePath } from "@/lib/constants"
 
 export function Header() {
   const scrollToForm = () => {
@@ -20,7 +21,7 @@ export function Header() {
           className="flex shrink-0 items-center md:justify-start justify-center flex-1 md:flex-none"
         >
           <img
-            src="/images/anella-logo-brown.png"
+            src={imagePath("/images/anella-logo-brown.png")}
             alt="ANELLA CAFE ロゴ"
             className="h-8 w-auto md:h-10"
           />

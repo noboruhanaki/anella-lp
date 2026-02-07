@@ -57,15 +57,22 @@ git push -u origin main
    - **Root Directory**: 空のまま（リポジトリのルートがプロジェクトルート）
    - **Build Command**: `next build` のまま
    - **Output Directory**: 空のまま
-4. **Environment Variables** はこの段階では空でよい。あとでまとめて設定します。
+4. **Environment Variables** で **`NEXT_PUBLIC_BASE_PATH`** だけ先に追加しておくとよい（値: `/anella-work-b`）。  
+   ※ **`BUILD_STATIC` は追加しないこと**。Vercel では API を動かすため、静的エクスポートなしでビルドします。
 5. **Deploy** をクリックして、いったんデプロイを開始する。  
-   （環境変数なしだとフォーム送信は失敗しますが、API の URL を確認するために一度デプロイして問題ありません。）
+   （他の環境変数はあとで設定し、Redeploy すれば反映されます。）
 
 ---
 
 ## 4. 環境変数を Vercel に登録する
 
 デプロイが終わったら、**Project → Settings → Environment Variables** を開き、次の変数を **Production** 向けに追加します。
+
+### 必須（本番の basePath・Xサーバーと合わせる）
+
+| 名前 | 値 | 説明 |
+|------|-----|------|
+| `NEXT_PUBLIC_BASE_PATH` | `/anella-work-b` | サブディレクトリ用。指定しないと API が `/api/contact` になり、Xサーバー用ビルドで指定する URL と合いません。 |
 
 ### 必須（メール送信）
 

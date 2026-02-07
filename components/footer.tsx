@@ -1,10 +1,12 @@
+import { imagePath } from "@/lib/constants"
+
 export function Footer() {
   return (
     <footer className="px-5 pb-28 pt-10 md:pb-10" style={{ backgroundColor: "#6B5541" }}>
       <div className="mx-auto max-w-md text-center">
         <div className="mb-4 flex justify-center">
           <img
-            src="/images/anella-logo-footer.png"
+            src={imagePath("/images/anella-logo-footer.png")}
             alt="ANELLA CAFE ロゴ"
             className="h-14 w-auto"
           />

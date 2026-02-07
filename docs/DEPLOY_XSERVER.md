@@ -58,18 +58,22 @@ cd /Users/hanakinoboru/Desktop/anella-lp
 npm ci
 ```
 
-フォーム送信先の URL を環境変数で渡してビルドします。
+**本番用に必ず指定する環境変数:**
+
+- **`BUILD_STATIC=1`** … 静的エクスポート（`out` フォルダ出力）にする。Xサーバー用ビルドでは必須。
+- **`NEXT_PUBLIC_BASE_PATH=/anella-work-b`** … サブディレクトリ用のパス（指定しないとルート `/` 用のビルドになり、Xサーバーで表示が崩れます）
+- **`NEXT_PUBLIC_CONTACT_API_URL`** … フォーム送信先の URL（下記パターン A または B）
 
 **パターン A（Vercel の API を使う場合）の例:**
 
 ```bash
-NEXT_PUBLIC_CONTACT_API_URL=https://あなたのプロジェクト.vercel.app/anella-work-b/api/contact npm run build
+BUILD_STATIC=1 NEXT_PUBLIC_BASE_PATH=/anella-work-b NEXT_PUBLIC_CONTACT_API_URL=https://あなたのプロジェクト.vercel.app/anella-work-b/api/contact npm run build
 ```
 
 **パターン B（GAS の URL を使う場合）の例:**
 
 ```bash
-NEXT_PUBLIC_CONTACT_API_URL=https://script.google.com/macros/s/xxxx/exec npm run build
+BUILD_STATIC=1 NEXT_PUBLIC_BASE_PATH=/anella-work-b NEXT_PUBLIC_CONTACT_API_URL=https://script.google.com/macros/s/xxxx/exec npm run build
 ```
 
 ビルドが完了すると、**`out`** フォルダに静的ファイルが出力されます。  
@@ -112,7 +116,12 @@ NEXT_PUBLIC_CONTACT_API_URL=https://script.google.com/macros/s/xxxx/exec npm run
 
 - `anella-work-b/index.html` が存在する
 - `anella-work-b/_next/` がある
-- `anella-work-b/anella-work-b/` に静的アセットがある（`basePath` によりこのような構造になります）
+- `anella-work-b/images/` がある
+
+### スタイル・画像が崩れる場合（WordPress と .htaccess）
+
+LP を置いたのに **スタイルが効かない・画像が表示されない** 場合は、WordPress の .htaccess が `/anella-work-b/` へのリクエストを横取りしています。  
+**→ [docs/XSERVER_HTACCESS_WORDPRESS.md](XSERVER_HTACCESS_WORDPRESS.md)** の手順で、`.htaccess` に 1 行追加してください。
 
 ---
 
@@ -147,6 +156,7 @@ npm run dev
 
 - LP は **静的ファイル** なので、WordPress のテーマやプラグインの影響は受けません。
 - **https://a-melo.com/** はこれまで通り WordPress、**https://a-melo.com/anella-work-b/** がこの LP という構成で問題ありません。
+- スタイル・画像が表示されない場合は、WordPress の .htaccess が `/anella-work-b/` を WordPress に渡しているためです。**[XSERVER_HTACCESS_WORDPRESS.md](XSERVER_HTACCESS_WORDPRESS.md)** の 1 行追加で解消します。
 
 ### 更新するとき
 

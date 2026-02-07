@@ -1,5 +1,6 @@
 import { Heart, HandHeart, Coffee } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { imagePath } from "@/lib/constants"
 
 const features = [
   {
@@ -61,7 +62,7 @@ export function FeaturesSection() {
               {/* Feature image */}
               <div className="relative h-44 w-full overflow-hidden">
                 <img
-                  src={feature.image || "/placeholder.svg"}
+                  src={imagePath(feature.image || "/placeholder.svg")}
                   alt={feature.imageAlt}
                   className={cn("h-full w-full object-cover", feature.imagePosition)}
                 />

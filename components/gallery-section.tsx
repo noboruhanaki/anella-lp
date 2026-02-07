@@ -8,6 +8,7 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel"
 import { Coins, UtensilsCrossed } from "lucide-react"
+import { imagePath } from "@/lib/constants"
 
 const galleryImages = [
   { src: "/images/店内画像1.JPG", alt: "店内の様子1" },
@@ -55,7 +56,7 @@ export function GallerySection() {
                 <CarouselItem key={image.src}>
                   <div className="overflow-hidden rounded-2xl shadow-md">
                     <img
-                      src={image.src || "/placeholder.svg"}
+                      src={imagePath(image.src || "/placeholder.svg")}
                       alt={image.alt}
                       className="h-56 w-full object-cover"
                     />
