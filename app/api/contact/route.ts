@@ -74,12 +74,12 @@ async function sendEmail(body: ContactFormBody): Promise<{ ok: boolean; error?: 
   return { ok: true }
 }
 
-/** Chatwork ルームにメッセージ投稿 */
+/** Chatwork ルームにメッセージ投稿（[toall] でルーム参加者全員にメンション） */
 async function sendToChatwork(body: ContactFormBody): Promise<{ ok: boolean; error?: string }> {
   if (!CHATWORK_API_TOKEN || !CHATWORK_ROOM_ID) {
     return { ok: false, error: "CHATWORK_API_TOKEN or CHATWORK_ROOM_ID is not set" }
   }
-  const message = formatContactMessage(body)
+  const message = "[toall]\n" + formatContactMessage(body)
   const form = new URLSearchParams({ body: message })
   const res = await fetch(
     `https://api.chatwork.com/v2/rooms/${CHATWORK_ROOM_ID}/messages`,
