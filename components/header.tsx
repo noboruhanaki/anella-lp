@@ -23,7 +23,7 @@ export function Header() {
           <img
             src={imagePath("/images/anella-logo-brown.png")}
             alt="ANELLA CAFE ロゴ"
-            className="h-8 w-auto md:h-10"
+            className="h-10 w-auto md:h-10"
           />
         </a>
 

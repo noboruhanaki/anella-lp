@@ -1,7 +1,7 @@
 import { MapPin, TrainFront, Bus } from "lucide-react"
 
 const accessRoutes = [
-  { icon: Bus, line: "東急バス 貝塚", time: "徒歩1分" },
+  { icon: Bus, line: "川崎鶴見臨港バス 貝塚", time: "徒歩1分" },
   { icon: TrainFront, line: "JR南武支線 川崎新町駅", time: "徒歩11分" },
   { icon: TrainFront, line: "JR上野東京ライン 川崎駅", time: "徒歩13分" },
   { icon: TrainFront, line: "JR東海道本線 川崎駅", time: "徒歩13分" },
