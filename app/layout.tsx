@@ -32,6 +32,19 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${mplus.variable} font-sans antialiased`}>
+        {/* Google Analytics (GA4) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-DKXY4KZ7QP"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DKXY4KZ7QP');
+          `}
+        </Script>
         {/* Meta Pixel Code - head相当で読み込み（beforeInteractiveで初期HTMLに含まれる） */}
         <Script
           id="meta-pixel"
