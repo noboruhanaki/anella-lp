@@ -22,8 +22,8 @@ export default function Page() {
       <ScheduleSection />
       <GallerySection />
       <AccessSection />
-      <FaqSection />
       <ContactFormSection />
+      <FaqSection />
       <Footer />
       <FloatingCta />
     </main>
